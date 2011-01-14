@@ -10,7 +10,7 @@ var reloadButton = Ti.UI.createButton({
 });
 var tableView = Ti.UI.createTableView();
 var activityIndicator = Titanium.UI.createActivityIndicator({
-	style: Titanium.UI.iPhone.ActivityIndicatorStyle.BIG
+	style: Titanium.UI.iPhone.ActivityIndicatorStyle.DARK
 });
 var workitems = [];
 
@@ -36,6 +36,7 @@ function updateTable(client) {
 		data.push(emptyRow);
 	}
 	tableView.setData(data);
+	activityIndicator.hide();
 }
 
 function update() {
