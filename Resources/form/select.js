@@ -11,7 +11,7 @@ WorkitemForm.Select = function(o) {
 WorkitemForm.Select.prototype = new WorkitemForm();
 
 WorkitemForm.Select.prototype.appendParameter = function(/* Array */params) {
-	if (this.formData['select-detail']) {
+	if (this.formData.items && this.formData.items.item) {
 		for ( var i = 0; i < this.value.item.length; i++) {
 			params.push([ this.paramPrefix + 'selects',
 					this.value.item[i].value ]);
@@ -42,8 +42,7 @@ WorkitemForm.Select.prototype.getRow = function() {
 
 WorkitemForm.Select.prototype.getEditorView = function(editWin, /* funciton */
 		updateHandler, index) {
-	// if(!this.singleSelect || !this.formData['select-detail']) {
-	if (!this.formData['select-detail']) {
+	if (!this.formData.items || !this.formData.items.item) {
 		return WorkitemForm.NotImplemented.prototype.getEditorView(editWin,
 				updateHandler, index);
 	}
@@ -52,7 +51,7 @@ WorkitemForm.Select.prototype.getEditorView = function(editWin, /* funciton */
 	var tableView = Ti.UI.createTableView({
 		top : 0
 	});
-	var items = this.formData['select-detail'].items.item;
+	var items = this.formData.items.item;
 	var data = [];
 	for ( var i = 0; i < items.length; i++) {
 		var selected = false;
@@ -91,7 +90,7 @@ WorkitemForm.Select.prototype.getEditorView = function(editWin, /* funciton */
 		};
 		for ( var i = 0; i < data.length; i++) {
 			if (data[i].hasCheck) {
-				value.item.push(that.formData['select-detail'].items.item[i]);
+				value.item.push(that.formData.items.item[i]);
 			}
 		}
 		updateHandler(index, value);
