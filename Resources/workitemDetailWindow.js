@@ -134,6 +134,7 @@ function showSubmitErrorDialog(result) {
  * @param client
  */
 function receiveSubmit(client) {
+	activityIndicator.hide();
 	try {
 		var result = formResultParser.dom2Json(client.responseXML).result;
 		if(result.success == 'true') {
