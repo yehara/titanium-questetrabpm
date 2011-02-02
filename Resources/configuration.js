@@ -9,7 +9,7 @@ Configuration.passwordMasks = [false, false, true];
 /** 設定が入力されているか */
 Configuration.filled = function() {
 	for(var i=0; i<Configuration.prefNames.length; i++) {
-		if(Ti.App.Properties.getString(Configuration.prefNames[i], '') == '') return false;
+		if(Ti.App.Properties.getString(Configuration.prefNames[i], '') == '') { return false; }
 	}
 	return true;
 }

@@ -22,6 +22,7 @@ var formResultParser = new com.hamasyou.XML.TiDOMParser();
 formResultParser.force_array = ['error'];
 
 var win = Ti.UI.currentWindow;
+win.stopOpenDetail = false;
 Titanium.UI.setBackgroundColor('#fff');
 
 var view = Ti.UI.createTableView({
@@ -221,13 +222,17 @@ function updateItem(/* number */ index, newValue) {
 };
 
 view.addEventListener('click', function(e) {
+	if(win.stopOpenDetail) {
+		win.stopOpenDetail = false;
+		return;
+	}
 	var formItem = formItems[e.index];
 	if(formItem.isWritable()) {
 		var editWin = Titanium.UI.createWindow({
 			title: formItem.formData.name
 		});
 		editWin.add(formItem.getEditorView(editWin, updateItem, e.index));
-		Titanium.UI.currentTab.open(editWin, {animated:true});
+		Ti.UI.currentTab.open(editWin, {animated:true});
 	}
 });
 
