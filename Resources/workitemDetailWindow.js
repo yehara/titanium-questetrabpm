@@ -38,10 +38,15 @@ var dialog = null;
 var rowData = [];
 /* submit ボタン */
 var submitButtons = [];
+/* 値を編集したかどうか */
+var valueModified = false;
+
+
 /* インジケータ */
 var activityIndicator = Titanium.UI.createActivityIndicator({
 	style: Titanium.UI.iPhone.ActivityIndicatorStyle.DARK
 });
+win.activityIndicator = activityIndicator;
 win.add(view);
 win.add(activityIndicator);
 
@@ -188,8 +193,36 @@ function submit(/* boolean */saveOnly, buttonIndex) {
     });
 };
 
+function replaceBackButton() {
+	var backButton = Ti.UI.createButton({
+		title: '中断',
+		style: Ti.UI.iPhone.SystemButtonStyle.BORDERED
+	})
+	backButton.addEventListener('click', function(){
+		var options = ['変更を破棄', 'キャンセル'];
+		dialog = Titanium.UI.createOptionDialog({
+			title: '変更されています',
+			options: options,
+			cancel: 1,
+			destructive: 0
+		});
+		dialog.addEventListener('click', function(e) {
+			if(e.cancel == e.index) {
+				return;
+			} else {
+				win.close();
+			}
+		});
+		dialog.show();	
+	});
+	win.setLeftNavButton(backButton);
+}
+
 /** タスク終了 */
-var doneButton = Titanium.UI.createButton({title:'完了'});
+var doneButton = Titanium.UI.createButton({
+	title:'完了',
+	style: Ti.UI.iPhone.SystemButtonStyle.DONE
+});
 doneButton.addEventListener('click', function(){
 	var options = [];
 	for(var i=0; i<submitButtons.length; i++) {
@@ -218,6 +251,10 @@ function updateItem(/* number */ index, newValue) {
 	if(formItem.applyValue(newValue)) {
 		rowData[index] = formItem.getRow();
 		view.setData(rowData);
+		if(!valueModified) {
+			valueModified = true;
+			replaceBackButton();
+		}
 	}
 };
 
@@ -231,8 +268,11 @@ view.addEventListener('click', function(e) {
 		var editWin = Titanium.UI.createWindow({
 			title: formItem.formData.name
 		});
-		editWin.add(formItem.getEditorView(editWin, updateItem, e.index));
-		Ti.UI.currentTab.open(editWin, {animated:true});
+		var editorView = formItem.getEditorView(editWin, updateItem, e.index);
+		if(editorView) {
+			editWin.add(editorView);
+			Ti.UI.currentTab.open(editWin, {animated:true});
+		}
 	}
 });
 
