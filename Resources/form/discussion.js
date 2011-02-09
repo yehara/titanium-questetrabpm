@@ -3,6 +3,7 @@
  */
 WorkitemForm.Discussion = function(o) {
 	WorkitemForm.call(this, o);
+	this.console = '';
 };
 WorkitemForm.Discussion.prototype = new WorkitemForm();
 
@@ -13,6 +14,10 @@ WorkitemForm.Discussion.prototype.appendParameter = function(/* Array */params) 
 };
 
 WorkitemForm.Discussion.prototype.applyValue = function(newValue) {
+	if(this.console == newValue) {
+		return false;
+	}
+	this.console = newValue;
 	return true;
 };
 
@@ -42,7 +47,7 @@ WorkitemForm.Discussion.prototype.getRow = function() {
 	return row;
 };
 WorkitemForm.Discussion.prototype.getEditorView = function(editWin, /* funciton */
-		updateHandler, index) {
+updateHandler, index) {
 	var view = Ti.UI.createScrollView({
 		layout : 'vertical'
 	});
@@ -60,8 +65,7 @@ WorkitemForm.Discussion.prototype.getEditorView = function(editWin, /* funciton 
 	});
 	var that = this;
 	editWin.addEventListener('close', function() {
-		that.console = textArea.value;
-		updateHandler(index, {});
+		updateHandler(index, textArea.value);
 	});
 	view.add(textArea);
 	return view;

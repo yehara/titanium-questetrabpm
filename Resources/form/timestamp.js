@@ -3,9 +3,17 @@
  */
 WorkitemForm.Timestamp = function(o) {
 	WorkitemForm.call(this, o);
-	this.value = o.value || {};
+	this.value = o.value || { date: '', time: ''};
 };
 WorkitemForm.Timestamp.prototype = new WorkitemForm();
+
+WorkitemForm.Timestamp.prototype.applyValue = function(newValue) {
+	if (this.value.date == newValue.date && this.value.time == newValue.time) {
+		return false;
+	}
+	this.value = newValue;
+	return true;
+};
 
 WorkitemForm.Timestamp.prototype.appendParameter = function(/* Array */params) {
 	if (this.value && this.value.date && this.value.time) {

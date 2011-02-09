@@ -201,7 +201,7 @@ function replaceBackButton() {
 	backButton.addEventListener('click', function(){
 		var options = ['変更を破棄', 'キャンセル'];
 		dialog = Titanium.UI.createOptionDialog({
-			title: '変更されています',
+			title: '変更されている可能性があります',
 			options: options,
 			cancel: 1,
 			destructive: 0

@@ -3,9 +3,22 @@
  */
 WorkitemForm.User = function(o) {
 	WorkitemForm.call(this, o);
-	this.value = o.value || {};
+	this.value = o.value || {
+		quser : {
+			name : '',
+			email : ''
+		}
+	};
 };
 WorkitemForm.User.prototype = new WorkitemForm();
+
+WorkitemForm.User.prototype.applyValue = function(newValue) {
+	if (this.value.quser.email == newValue.quser.email) {
+		return false;
+	}
+	this.value = newValue;
+	return true;
+};
 
 WorkitemForm.User.prototype.appendParameter = function(/* Array */params) {
 	if (this.value.quser) {
@@ -32,7 +45,7 @@ WorkitemForm.User.prototype.getRow = function() {
 };
 
 WorkitemForm.User.prototype.getEditorView = function(editWin, /* funciton */
-		updateHandler, index) {
+updateHandler, index) {
 	var view = Ti.UI.createScrollView({
 		layout : 'vertical'
 	});
