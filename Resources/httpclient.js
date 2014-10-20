@@ -42,9 +42,10 @@ HttpClient.send = function(params) {
 		client.setRequestHeader("Content-Type",
 				"application/x-www-form-urlencoded; charset=UTF-8");
 	}
-	var authorizationHeader = 'Basic '
-			+ Ti.Utils.base64encode(Ti.App.Properties.getString('email') + ':'
-					+ Ti.App.Properties.getString('password'));
+	var user = Ti.App.Properties.getString('email');
+	var password = Ti.App.Properties.getString('password');
+	var authorizationHeader = 'Basic ' + Ti.Utils.base64encode(user + ":" + password);
+	authorizationHeader = authorizationHeader.replace(/[\r\n]+/g, "");
 	client.setRequestHeader('Authorization', authorizationHeader);
 	client.onload = function() {
 		params.success(this);
