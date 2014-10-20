@@ -26,7 +26,7 @@ function updateTable(client) {
 	var data = [];
 	for ( var i = 0; i < workitems.length; i++) {
 		var row = WorkitemCell.createWorkitemCell(workitems[i]);
-		row.hasChild = true;
+		row.hasChild = false;
 		data.push(row);
 	}
 	tab.setBadge(workitems.length > 0 ? workitems.length : null);

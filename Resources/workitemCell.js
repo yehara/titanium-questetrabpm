@@ -35,7 +35,7 @@ WorkitemCell.createWorkitemCell = function(/* Object */workitem) {
 	var processModelNameLabel = Ti.UI.createLabel({
 		text : workitem.processModelInfoName,
 		left : 10,
-		right : 50,
+		right : 60,
 		top : 4,
 		height : 12,
 		font : {
@@ -66,7 +66,6 @@ WorkitemCell.createWorkitemCell = function(/* Object */workitem) {
 	var dateLabel = Ti.UI.createLabel({
 		text : offerDateString,
 		right : 10,
-		width : 100,
 		top : 0,
 		height : 21,
 		textAlign : 'right',
@@ -98,5 +97,3 @@ WorkitemCell.createMessageCell = function(message) {
 	row.add(label);
 	return row;
 };
-
-
