@@ -1,8 +1,8 @@
 var Configuration = {};
 
 Configuration.prefNames = ['url', 'email', 'password'];
-Configuration.prefLabels = ['サーバ URL', 'メールアドレス', 'パスワード'];
-Configuration.prefDefaults = ['https://s.questetra.net/00000000/', 'SouthPole@questetra.com', 'ssssssss'];
+Configuration.prefLabels = ['サーバ URL', 'メールアドレス', 'APIパスワード'];
+Configuration.prefDefaults = ['https://online-demo-ja.questetra.net/', 'SouthPole@questetra.com', 'ItBKJrysUFCILxheTRUbgPsH4NAJ96s8'];
 Configuration.keyboards = [Titanium.UI.KEYBOARD_URL, Titanium.UI.KEYBOARD_EMAIL_ADDRESS, Titanium.UI.KEYBOARD_ASCII];
 Configuration.passwordMasks = [false, false, true];
 
@@ -12,4 +12,4 @@ Configuration.filled = function() {
 		if(Ti.App.Properties.getString(Configuration.prefNames[i], '') == '') { return false; }
 	}
 	return true;
-}
+};
